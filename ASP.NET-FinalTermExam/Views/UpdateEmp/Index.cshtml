@@ -1,0 +1,118 @@
+﻿
+<h2>修改員工資料</h2>
+<html>
+<body>
+    @using (Html.BeginForm("Index", "UpdateEmp", FormMethod.Post))
+    {
+        <table border="1" class="table table-bordered">
+            <tr>
+                <td>員工編號</td>
+                <td><input type="text" id="empId" name="empId" value="@ViewBag.data.EmployeeID" /></td>
+            </tr>
+            <tr>
+                <td>姓名(First Name)</td>
+                <td><input type="text" id="empFirstName" name="empFirstName" value="@ViewBag.data.FirstName"></td>
+            </tr>
+            <tr>
+                <td>姓名(Last Name)</td>
+                <td><input type="text" id="empLastName" name="empLastName" value="@ViewBag.data.LastName"></td>
+            </tr>
+            <tr>
+                <td>職稱</td>
+                <td><input type="text" id="empTitle" name="empTitle" value="@ViewBag.data.Title"></td>
+            </tr>
+            <tr>
+                <td>稱謂</td>
+                <td><input type="text" id="empTitleName" name="empTitleName" value="@ViewBag.data.TitleOfCourtesy"></td>
+            </tr>
+            <tr>
+                <td>任職日期</td>
+                <td>
+                    <input type="date" id="empHireDate" name="empHireDate" value="@ViewBag.data.HireDate">
+                </td>
+            </tr>
+            <tr>
+                <td>生日</td>
+                <td>
+                    <input type="date" id="empBirthDate" name="empBirthDate" value="@ViewBag.data.BirthDate">
+                </td>
+            </tr>
+            <tr>
+                <td>國家</td>
+                <td><input type="text" id="empCountry" name="empCountry" value="@ViewBag.data.Country"></td>
+            </tr>
+            <tr>
+                <td>城市</td>
+                <td><input type="text" id="empCity" name="empCity" value="@ViewBag.data.City"></td>
+            </tr>
+            <tr>
+                <td>地址</td>
+                <td><input type="text" id="empAddress" name="empAddress" value="@ViewBag.data.Address"></td>
+            </tr>
+            <tr>
+                <td>電話</td>
+                <td><input type="text" id="empPhone" name="empPhone" value="@ViewBag.data.Phone"></td>
+            </tr>
+            <tr>
+                <td>性別</td>
+                <td><input type="text" id="empGender" name="empGender" value="@ViewBag.data.Gender"></td>
+            </tr>
+            <tr>
+                <td>直屬主管</td>
+                <td><input type="text" id="empManagerID" name="empManagerID" value="@ViewBag.data.ManagerID"></td>
+            </tr>
+            <tr>
+                <td>月薪</td>
+                <td><input type="text" id="empMonthlyPayment" name="empMonthlyPayment" value="@ViewBag.data.MonthlyPayment"></td>
+            </tr>
+            <tr>
+                <td>年薪</td>
+                <td><input type="text" id="empYearlyPayment" name="empYearlyPayment" value="@ViewBag.data.YearlyPayment"></td>
+            </tr>
+            <tr>
+                <td></td>
+                <td>
+                    <input type="submit" value="存檔" class="btn">
+                    <input type="reset" value="刪除" class="btn" onclick="deleteEmp('@ViewBag.data.EmployeeID')">
+                    <input type="button" value="回前一頁" class="btn">
+                </td>
+            </tr>
+        </table>
+    }
+</body>
+</html>
+<script>
+
+    $(document).ready(function (){
+        $("#empFirstName").kendoMaskedTextBox();
+        $("#empLastName").kendoMaskedTextBox();
+        $("#empTitleName").kendoMaskedTextBox();
+        $("#empAddress").kendoMaskedTextBox();
+        $("#empPhone").kendoMaskedTextBox();
+        $("#empManagerID").kendoMaskedTextBox();
+        $("#empMonthlyPayment").kendoMaskedTextBox();
+        $("#empYearlyPayment").kendoMaskedTextBox();
+
+        $("#empBirthDate").kendoDatePicker();
+        $("#empHireDate").kendoDatePicker();
+
+        $(".btn").kendoButton();
+    });
+
+    function deleteEmp(empId) {
+        $.ajax({
+            type: "GET",
+            url: "/SearchEmp/delete",
+            data: {
+                empId: empId
+            },
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            success: function (msg) {
+            }
+        });
+
+        alert("您已成功刪除第" + empId + "筆資料");
+        window.location.reload();
+    }
+</script>

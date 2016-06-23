@@ -1,0 +1,56 @@
+﻿
+<h2>員工資料查詢</h2>
+
+<html>
+    <body>
+        @using (Html.BeginForm("Index","SearchEmp",FormMethod.Post))
+        {
+            <table border="1" class="table table-bordered">
+                <tr>
+                    <td>員工編號</td>
+                    <td><input type="text" id="empId" name="empId"></td>
+                </tr>
+                <tr>
+                    <td>員工姓名</td>
+                    <td><input type="text" id="empName" name="empName"></td>
+                </tr>
+                <tr>
+                    <td>職稱</td>
+                    <td><input type="text" id="empTitle" name="empTitle"></td>
+                </tr>
+                <tr>
+                    <td>任職日期</td>
+                    <td>
+                        <input type="date" id="empHireDateStart" name="empHireDateStart"> ~
+                        <input type="date" id="empHireDateEnd" name="empHireDateEnd">
+                    </td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td>
+                        <input type="submit" value="查詢" class="btn">
+                        <input type="reset" value="清除" class="btn">
+                        <a href="#"><input type="button" value="新增員工" class="btn"></a>
+                    </td>
+                </tr>
+            </table>
+        }
+        
+    </body>
+</html>
+
+<script>
+
+    $(document).ready(function () {
+        $("#empId").kendoNumericTextBox({
+            min: 1,
+            format: "#"
+        });
+        $("#empName").kendoMaskedTextBox();
+        $("#empTitle").kendoMaskedTextBox();
+        $("#empHireDateStart").kendoDatePicker();
+        $("#empHireDateEnd").kendoDatePicker();
+        $(".btn").kendoButton();
+    });
+</script>
+

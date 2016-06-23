@@ -1,0 +1,60 @@
+﻿
+
+<h2>查詢結果</h2>
+
+<html>
+<body>
+    <table border="1" class="table table-bordered">
+        <tr>
+            <td>員工編號</td>
+            <td>員工姓名</td>
+            <td>職稱</td>
+            <td>任職日期</td>
+            <td>性別</td>
+            <td>年齡</td>
+            <td></td>
+        </tr>
+        @foreach (var item in (List<ASP.NET_FinalTermExam.Models.Employees>)ViewBag.data)
+        {
+            <tr>
+                <td>@item.EmployeeID</td>
+                <td>@item.FirstName @item.LastName</td>
+                <td>@item.Title</td>
+                <td>@item.HireDate</td>
+                <td>@item.Gender</td>
+                <td>@item.BirthDate</td>
+                <td>
+                    <a href="/UpdateEmp/Index?empId=@item.EmployeeID"><input type="button" value="修改" class="btn" /></a>
+                    <input type="button" value="刪除" class="btn" onclick="deleteEmp('@item.EmployeeID')" />
+                </td>
+            </tr>
+        }
+        
+    </table>
+</body>
+</html>
+
+<script>
+
+    $(document).ready(function(){
+        $(".btn").kendoButton();
+    });
+
+    function deleteEmp(empId){
+        $.ajax({
+            type: "GET",
+            url: "/SearchEmp/delete",
+            data: {
+                empId: empId
+            },
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            success: function (msg) {
+            }
+        });
+        
+        alert("您已成功刪除第" + empId + "筆資料");
+        window.location.reload();
+    }
+</script>
+
